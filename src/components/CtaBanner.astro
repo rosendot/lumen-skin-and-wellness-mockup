@@ -1,0 +1,18 @@
+---
+/** Closing conversion banner. Copy and button target vary per page. */
+interface Props {
+  heading: string;
+  body: string;
+  ctaLabel: string;
+  ctaHref: string;
+}
+const { heading, body, ctaLabel, ctaHref } = Astro.props;
+---
+
+<section class="section cta-banner">
+  <div class="wrap">
+    <h2>{heading}</h2>
+    <p>{body}</p>
+    <a class="btn" href={ctaHref}>{ctaLabel}</a>
+  </div>
+</section>

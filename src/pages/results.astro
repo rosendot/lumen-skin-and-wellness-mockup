@@ -1,0 +1,167 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ImageSlot from "../components/ImageSlot.astro";
+import CrumbBar from "../components/CrumbBar.astro";
+import BeforeAfter from "../components/BeforeAfter.astro";
+import CtaBanner from "../components/CtaBanner.astro";
+
+const comparisons = [
+  {
+    beforeSlot: "BEFORE: dull, congested skin — signature facial course",
+    afterSlot: "AFTER: clear, luminous skin — same client, same light",
+    title: "Signature Facial course",
+    body: "Six sessions over three months, paired with a custom skincare plan.",
+  },
+  {
+    beforeSlot: "BEFORE: flatter cheek volume — conservative filler",
+    afterSlot: "AFTER: subtly restored volume, natural — same client, same light",
+    title: "Conservative filler",
+    body: "One syringe, placed to refresh — not to change the face.",
+  },
+  {
+    beforeSlot: "BEFORE: uneven texture, acne scarring — microneedling",
+    afterSlot: "AFTER: smoother texture, softened scarring — same client, same light",
+    title: "Microneedling series",
+    body: "Three treatments spaced a month apart for texture and scarring.",
+  },
+];
+
+const stories = [
+  {
+    quote:
+      "I came in convinced I needed a full face of filler. Dana spent twenty minutes talking me down to one syringe and a skincare plan. Six months later people keep asking if I've been on vacation.",
+    initial: "M",
+    name: "Marisol T.",
+    location: "Scottsdale",
+  },
+  {
+    quote:
+      "I'd had bad experiences at big injector chains — always oversold, always overdone. Lumen is the first place that treated my skin like a medical decision. I actually look like myself now.",
+    initial: "J",
+    name: "Jenna P.",
+    location: "Paradise Valley",
+  },
+  {
+    quote:
+      "My cystic acne was wrecking my confidence. The microneedling series and the plan they built for me cleared it up over a few months. I cried at my last appointment — happy tears.",
+    initial: "D",
+    name: "Devon R.",
+    location: "Tempe",
+  },
+];
+---
+
+<Layout
+  title="Results — Lumen Skin &amp; Wellness · Scottsdale, AZ"
+  active="/results/"
+>
+  <CrumbBar
+    here="Results"
+    eyebrow="Before & after"
+    heading="Quiet, honest results."
+    lede="No filters, no dramatic reveals — just real clients who came in wanting to look like themselves, only more rested. Every result here is shared with permission."
+  />
+
+  <!-- ===================== IMAGE COMPARISON ===================== -->
+  <section class="section compare-sec">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Side by side</p>
+        <h2>A few we're proud of.</h2>
+        <p>
+          Same lighting, same angle, no retouching. Different treatments,
+          different timelines.
+        </p>
+      </div>
+      <div class="compare-list">
+        {
+          comparisons.map((c) => (
+            <div class="compare-row">
+              <div class="compare-cell">
+                <ImageSlot label={c.beforeSlot} />
+                <span class="clbl">Before</span>
+              </div>
+              <div class="compare-cell">
+                <ImageSlot label={c.afterSlot} />
+                <span class="clbl">After</span>
+              </div>
+              <div class="compare-meta">
+                <div>
+                  <h3>{c.title}</h3>
+                  <p>{c.body}</p>
+                </div>
+                <span class="vary">Results vary</span>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== BEFORE / AFTER (hero) ===================== -->
+  <section class="section ba-sec">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Drag to compare</p>
+        <h2>The full transformation.</h2>
+        <p>One client's twelve-week skin-clarity journey — drag the handle across.</p>
+      </div>
+      <BeforeAfter
+        heroSize
+        beforeLabel="BEFORE: redness, congestion, uneven tone — wide portrait, same lighting"
+        afterLabel="AFTER: clear, radiant, even skin — wide portrait, same lighting"
+      />
+      <p class="ba-caption">
+        Twelve weeks: a facial course, microneedling, and a medical skincare
+        plan.<span class="vary">Results vary from client to client.</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== TESTIMONIAL SLIDER ===================== -->
+  <section class="section t-slider-sec">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Client stories</p>
+        <h2>In more than a sentence.</h2>
+      </div>
+      <div class="t-slider" data-slider>
+        <div class="t-stage">
+          {
+            stories.map((s, i) => (
+              <div class={i === 0 ? "t-slide active" : "t-slide"}>
+                <div class="stars">★★★★★</div>
+                <blockquote>"{s.quote}"</blockquote>
+                <div class="who">
+                  <div class="avatar">{s.initial}</div>
+                  <div class="meta">
+                    <b>{s.name}</b>
+                    <span>{s.location}</span>
+                  </div>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+        <div class="t-dots">
+          {
+            stories.map((_, i) => (
+              <button
+                class={i === 0 ? "t-dot active" : "t-dot"}
+                aria-label={`Story ${i + 1}`}
+              />
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CtaBanner
+    heading="Results like these start with a consult."
+    body="We'll look at your skin honestly and map the shortest path to the outcome you actually want."
+    ctaLabel="Book a Consultation"
+    ctaHref="/contact/"
+  />
+</Layout>

@@ -1,0 +1,237 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ImageSlot from "../components/ImageSlot.astro";
+import CrumbBar from "../components/CrumbBar.astro";
+import CtaBanner from "../components/CtaBanner.astro";
+
+const priceGroups = [
+  {
+    title: "Facials",
+    items: [
+      {
+        name: "Signature Facial",
+        desc: "Custom cleanse and treatment, tailored to your skin that day.",
+        price: "$120",
+      },
+      {
+        name: "HydraFacial",
+        desc: "Cleanse, extract, and hydrate in one — zero downtime.",
+        price: "$175",
+      },
+      {
+        name: "Chemical Peel",
+        desc: "Medical-grade resurfacing for tone and texture.",
+        price: "$150",
+      },
+      {
+        name: "Dermaplaning",
+        desc: "Gentle exfoliation for smoother, brighter skin.",
+        price: "$90",
+      },
+    ],
+  },
+  {
+    title: "Injectables",
+    items: [
+      {
+        name: "Botox",
+        desc: "Priced per unit, dosed conservatively by your NP.",
+        price: "$12/unit",
+      },
+      {
+        name: "Dysport",
+        desc: "An alternative neuromodulator, priced per unit.",
+        price: "$10/unit",
+      },
+      {
+        name: "Filler",
+        desc: "Restored volume, per syringe. We start subtle.",
+        price: "$650",
+      },
+      {
+        name: "Lip Enhancement",
+        desc: "Natural shape and hydration, never overfilled.",
+        price: "$600",
+      },
+    ],
+  },
+  {
+    title: "Massage",
+    items: [
+      {
+        name: "60-min Therapeutic",
+        desc: "Full-body relaxation and tension release.",
+        price: "$95",
+      },
+      {
+        name: "90-min Deep Tissue",
+        desc: "Focused work on chronic tightness and knots.",
+        price: "$135",
+      },
+      {
+        name: "Lymphatic Drainage",
+        desc: "Gentle technique that reduces puffiness and aids recovery.",
+        price: "$110",
+      },
+    ],
+  },
+  {
+    title: "Skincare & Body",
+    items: [
+      {
+        name: "Microneedling",
+        desc: "Collagen induction for texture, scars, and firmness.",
+        price: "$300",
+      },
+      {
+        name: "LED Light Therapy",
+        desc: "Calms redness and supports healing — a great add-on.",
+        price: "$75",
+      },
+      {
+        name: "Custom Skincare Plan",
+        desc: "A prescriptive at-home routine built by your provider.",
+        price: "$150",
+      },
+    ],
+  },
+];
+
+const rows = [
+  {
+    slot: "NP reviewing a client's skin under good light, both seated, unhurried",
+    eyebrow: "Step one, always",
+    title: "Every plan starts with a consult.",
+    body: 'Before any treatment, your nurse practitioner examines your skin, asks about your history, and maps what\'s actually going on. Only then do we recommend anything — and sometimes the honest answer is "less than you came in for."',
+  },
+  {
+    slot: "Clinical devices and medical-grade serums neatly arranged on a clean tray",
+    eyebrow: "The real thing",
+    title: "Medical-grade, not med-cabinet.",
+    body: "The products and devices we use are the ones that require a licensed provider to administer — professional formulations and equipment held to a medical standard, not drugstore versions in nicer packaging.",
+  },
+];
+
+const faqs = [
+  {
+    q: "Do injectables hurt?",
+    a: "Most people describe a quick pinch. We use fine needles, numbing where it helps, and a calm, unhurried pace. Botox takes only a few minutes; filler a bit longer.",
+  },
+  {
+    q: "How long until I see results?",
+    a: "Facials give an immediate glow. Botox settles over 7–14 days. Filler is visible right away and refines over two weeks. Skin-clarity plans build over several weeks — we'll set expectations up front.",
+  },
+  {
+    q: "Is there downtime?",
+    a: "Most treatments have little to none. Injectables may cause minor bruising; peels and microneedling can mean a few days of flaking or pinkness. We'll tell you exactly what to expect before you commit.",
+  },
+  {
+    q: "How do I know what I need?",
+    a: "You don't have to. That's the point of the consultation — we assess your skin and recommend the shortest path to your goal, not the longest invoice.",
+  },
+  {
+    q: "Are your providers licensed?",
+    a: "Yes. Lumen is NP-led — every treatment plan is reviewed by a licensed nurse practitioner, and all injectables are performed under medical oversight.",
+  },
+  {
+    q: "Can I combine treatments?",
+    a: "Often, yes — a facial with LED, or massage on a treatment day, pair beautifully. Some combinations need spacing for safety, which your provider will map out for you.",
+  },
+];
+---
+
+<Layout
+  title="Treatments — Lumen Skin &amp; Wellness · Scottsdale, AZ"
+  active="/treatments/"
+>
+  <CrumbBar
+    here="Treatments"
+    eyebrow="The menu"
+    heading="Every treatment we offer, in plain terms."
+    lede="Real prices, no packages you don't need. Not sure what's right for you? That's what the consultation is for — we'll build the plan together."
+  />
+
+  <!-- ===================== SERVICE PRICE LIST ===================== -->
+  <section class="section pricelist">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">À la carte</p>
+        <h2>The full treatment menu.</h2>
+      </div>
+      <div class="pl-groups">
+        {
+          priceGroups.map((g) => (
+            <div class="pl-group">
+              <h3>{g.title}</h3>
+              <div class="pl-rule" />
+              {g.items.map((item) => (
+                <div class="pl-item">
+                  <div>
+                    <div class="pl-name">{item.name}</div>
+                    <div class="pl-desc">{item.desc}</div>
+                  </div>
+                  <span class="pl-dots" />
+                  <span class="pl-price">{item.price}</span>
+                </div>
+              ))}
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FEATURE ALTERNATING ===================== -->
+  <section class="section feature-alt">
+    <div class="wrap">
+      <div class="fa-rows">
+        {
+          rows.map((r, i) => (
+            <div class={i % 2 === 1 ? "fa-row flip" : "fa-row"}>
+              <div class="fa-media">
+                <ImageSlot label={r.slot} />
+              </div>
+              <div class="fa-body">
+                <p class="eyebrow">{r.eyebrow}</p>
+                <h3>{r.title}</h3>
+                <p>{r.body}</p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ ACCORDION ===================== -->
+  <section class="section faq">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Good questions</p>
+        <h2>Before you book.</h2>
+      </div>
+      <div class="faq-list">
+        {
+          faqs.map((f) => (
+            <details class="faq-item">
+              <summary>
+                {f.q}
+                <span class="mk" />
+              </summary>
+              <div class="ans">
+                <p>{f.a}</p>
+              </div>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CtaBanner
+    heading="Ready to build your plan?"
+    body="Come in for a consult and we'll turn this menu into a plan that fits your skin, your calendar, and your budget."
+    ctaLabel="Book a Consultation"
+    ctaHref="/contact/"
+  />
+</Layout>

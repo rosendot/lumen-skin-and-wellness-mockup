@@ -1,0 +1,238 @@
+---
+import Layout from "../layouts/Layout.astro";
+import CrumbBar from "../components/CrumbBar.astro";
+import { clinic } from "../data/site";
+
+const treatmentOptions = [
+  "Not sure yet — help me decide",
+  "Signature Facial",
+  "Botox & Filler",
+  "Therapeutic Massage",
+  "Microneedling",
+  "Medical Skincare Plan",
+  "Membership",
+];
+
+const dayOptions = [
+  "No preference",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
+
+const timeOptions = ["No preference", "Morning", "Midday", "Afternoon"];
+
+/** data-day matches JS getDay(): 0 = Sunday. The live status in lumen.ts
+ *  highlights today's row and computes open/closed from the visitor's clock. */
+const hours = [
+  { day: "Sunday", time: "Closed", idx: 0, closed: true },
+  { day: "Monday", time: "Closed", idx: 1, closed: true },
+  { day: "Tuesday", time: "9:00am – 6:00pm", idx: 2, closed: false },
+  { day: "Wednesday", time: "9:00am – 6:00pm", idx: 3, closed: false },
+  { day: "Thursday", time: "9:00am – 6:00pm", idx: 4, closed: false },
+  { day: "Friday", time: "9:00am – 6:00pm", idx: 5, closed: false },
+  { day: "Saturday", time: "9:00am – 6:00pm", idx: 6, closed: false },
+];
+---
+
+<Layout
+  title="Contact — Lumen Skin &amp; Wellness · Scottsdale, AZ"
+  active="/contact/"
+>
+  <CrumbBar
+    here="Contact"
+    eyebrow="Let's talk skin"
+    heading="Request your free consultation."
+    lede="Tell us a little about what you're hoping for. We'll follow up to find a time — the consult is where everything starts, and there's never any pressure to book a treatment."
+  />
+
+  <!-- ===================== CONTACT SPLIT ===================== -->
+  <section class="section contact-split" id="request">
+    <div class="wrap">
+      <div class="cs-grid">
+        <form class="res-form" data-visual>
+          <h3>Consultation request</h3>
+          <div class="form-grid">
+            <div class="field">
+              <label for="f-name">Name <span class="req">*</span></label>
+              <input
+                type="text"
+                id="f-name"
+                name="name"
+                autocomplete="name"
+                placeholder="First &amp; last"
+              />
+            </div>
+            <div class="field">
+              <label for="f-email">Email <span class="req">*</span></label>
+              <input
+                type="email"
+                id="f-email"
+                name="email"
+                autocomplete="email"
+                placeholder="you@email.com"
+              />
+            </div>
+            <div class="field">
+              <label for="f-phone">Phone</label>
+              <input
+                type="tel"
+                id="f-phone"
+                name="phone"
+                autocomplete="tel"
+                placeholder="(480) 555-0000"
+              />
+            </div>
+            <div class="field">
+              <label for="f-treatment">Treatment of interest</label>
+              <select id="f-treatment" name="treatment">
+                {treatmentOptions.map((o) => <option>{o}</option>)}
+              </select>
+            </div>
+            <div class="field">
+              <label for="f-day">Preferred day</label>
+              <select id="f-day" name="day">
+                {dayOptions.map((o) => <option>{o}</option>)}
+              </select>
+            </div>
+            <div class="field">
+              <label for="f-time">Best time</label>
+              <select id="f-time" name="time">
+                {timeOptions.map((o) => <option>{o}</option>)}
+              </select>
+            </div>
+            <div class="field full">
+              <label for="f-notes">Anything we should know?</label>
+              <textarea
+                id="f-notes"
+                name="notes"
+                placeholder="Your skin goals, questions, or concerns — as much or as little as you like."
+              ></textarea>
+            </div>
+          </div>
+          <button class="btn" type="submit">Request consultation</button>
+          <p class="fineprint">
+            We'll reply within one business day. This form doesn't book an
+            appointment — we'll confirm a time together.
+          </p>
+        </form>
+
+        <div class="cs-info">
+          <h3>Visit us</h3>
+          <div class="contact-row">
+            <div class="k">Address</div>
+            <div class="v">{clinic.addressLine1}<br />{clinic.addressLine2}</div>
+          </div>
+          <div class="contact-row">
+            <div class="k">Phone</div>
+            <div class="v"><a href={clinic.phoneHref}>{clinic.phone}</a></div>
+          </div>
+          <div class="contact-row">
+            <div class="k">Email</div>
+            <div class="v">
+              <a href={`mailto:${clinic.email}`}>{clinic.email}</a>
+            </div>
+          </div>
+          <div class="contact-row">
+            <div class="k">Hours</div>
+            <div class="v">
+              Tuesday – Saturday · 9am – 6pm<br />Closed Sunday &amp; Monday
+            </div>
+          </div>
+          <div class="contact-row">
+            <div class="k">Parking</div>
+            <div class="v">
+              Free covered parking in the Camelback Collective garage, level 2.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== MAP EMBED ===================== -->
+  <section class="section mapembed">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Find us</p>
+        <h2>On Camelback Road.</h2>
+      </div>
+      <div class="mapembed-grid">
+        <div
+          class="map-box"
+          role="img"
+          aria-label="Map of 7120 E Camelback Rd, Scottsdale"
+        >
+          <div class="road" style="top:38%; left:0; right:0; height:14px;"></div>
+          <div class="road" style="top:0; bottom:0; left:60%; width:10px;"></div>
+          <div class="road" style="top:70%; left:0; right:0; height:8px;"></div>
+          <div class="pin"></div>
+          <div class="maplbl">7120 E Camelback Rd · Scottsdale, AZ 85251</div>
+        </div>
+        <div class="contact-card">
+          <h3>Get directions</h3>
+          <div class="contact-row">
+            <div class="k">Address</div>
+            <div class="v">{clinic.addressLine1}<br />{clinic.addressLine2}</div>
+          </div>
+          <div class="contact-row">
+            <div class="k">Phone</div>
+            <div class="v"><a href={clinic.phoneHref}>{clinic.phone}</a></div>
+          </div>
+          <div class="contact-row">
+            <div class="k">Nearby</div>
+            <div class="v">
+              Between Scottsdale Fashion Square and Old Town — easy to pair with
+              lunch.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== HOURS CARD ===================== -->
+  <section class="section hours-sec">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">When we're open</p>
+        <h2>Hours.</h2>
+      </div>
+      <div class="hours-card" data-hours>
+        <div class="hours-status">
+          <span class="dot"></span>
+          <b data-hours-label>Open now</b>
+          <span data-hours-sub>Today until 6:00pm</span>
+        </div>
+        <div class="hours-rows">
+          {
+            hours.map((h) => (
+              <div
+                class={h.closed ? "hours-row closed-day" : "hours-row"}
+                data-day={h.idx}
+              >
+                <span class="day">{h.day}</span>
+                <span class="time">{h.time}</span>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER CTA ===================== -->
+  <section class="footer-cta">
+    <div class="wrap">
+      <p class="eyebrow">One more thing</p>
+      <h2>Your consultation is free. Let's talk skin.</h2>
+      <p>
+        No commitment, no hard sell — just a licensed provider, your goals, and
+        an honest plan.
+      </p>
+      <a class="btn" href="#request">Request a consultation</a>
+    </div>
+  </section>
+</Layout>

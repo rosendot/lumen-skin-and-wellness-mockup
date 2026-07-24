@@ -1,0 +1,34 @@
+---
+import { navItems } from "../data/site";
+
+interface Props {
+  /** Route of the current page, used to mark the active nav link. */
+  active?: string;
+}
+const { active } = Astro.props;
+---
+
+<header class="site-header" id="header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      <span class="mark">L</span>
+      <span class="name">Lumen Skin &amp; Wellness<small>Scottsdale · AZ</small></span>
+    </a>
+    <nav class="nav" id="nav">
+      {
+        navItems.map((item) => (
+          <a
+            class={item.href === active ? "lnk active" : "lnk"}
+            href={item.href}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+      <a class="btn" href="/contact/">Book a Consultation</a>
+    </nav>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>

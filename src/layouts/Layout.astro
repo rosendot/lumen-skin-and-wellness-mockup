@@ -1,0 +1,42 @@
+---
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import "../styles/tokens.css";
+import "../styles/lumen.css";
+
+interface Props {
+  title: string;
+  description?: string;
+  /** Route of the current page, used to mark the active nav link. */
+  active?: string;
+}
+
+const {
+  title,
+  description = "Medical-grade facials, injectables, massage, and results-driven skincare in Scottsdale, AZ — led by a licensed nurse practitioner.",
+  active,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta name="generator" content={Astro.generator} />
+  </head>
+  <body>
+    <Header active={active} />
+    <slot />
+    <Footer />
+    <script>
+      import "../scripts/lumen.ts";
+    </script>
+  </body>
+</html>

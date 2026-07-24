@@ -1,0 +1,138 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ImageSlot from "../components/ImageSlot.astro";
+import CrumbBar from "../components/CrumbBar.astro";
+import CtaBanner from "../components/CtaBanner.astro";
+
+const founderParas = [
+  "She'd spent years watching patients get sold treatments they didn't need — and watching good skincare get lost in the upsell. Lumen was her answer: a clinic where a licensed nurse practitioner sits with you first, and where \"you don't need that\" is a normal thing to hear.",
+  "Every plan at Lumen still crosses her desk. She'd rather you leave with fewer treatments and more trust — and come back because you want to, not because a package expires.",
+];
+
+const team = [
+  {
+    slot: "Dana — headshot, warm, professional",
+    name: "Dana",
+    role: "Founder & Nurse Practitioner",
+    body: "Leads every treatment plan and performs all injectables. Ten years in dermatology before Lumen.",
+  },
+  {
+    slot: "Mara — headshot, warm, professional",
+    name: "Mara",
+    role: "Master Esthetician",
+    body: "Our facials expert. If your skin needs something specific, Mara has almost certainly seen it before.",
+  },
+  {
+    slot: "Sofia — headshot, warm, professional",
+    name: "Sofia",
+    role: "Massage Therapist",
+    body: "Therapeutic and lymphatic bodywork that turns a treatment day into a genuine reset.",
+  },
+  {
+    slot: "Cole — headshot, warm, professional",
+    name: "Cole",
+    role: "Patient Coordinator",
+    body: "The friendly voice on the phone. Handles your scheduling, questions, and membership details.",
+  },
+];
+
+const philosophy = [
+  {
+    slot: "NP and client in calm conversation, no procedure — trust and restraint",
+    eyebrow: "Our philosophy",
+    title: "We'd rather under-treat.",
+    body: 'You can always add more; you can\'t easily undo too much. We start conservative on purpose and adjust from there — because the best compliment we get is "you look great," not "what did you have done?"',
+  },
+  {
+    slot: "Framed credentials / clean clinical detail — licensed, medical setting",
+    eyebrow: "The standard",
+    title: "Licensed, medical, accountable.",
+    body: "We're an NP-led medical practice, not a spa that dabbles. Injectables are performed under medical oversight, products are prescription-grade, and if something isn't right for you, we'll say so — and we'll stand behind the care we do give.",
+  },
+];
+---
+
+<Layout
+  title="About — Lumen Skin &amp; Wellness · Scottsdale, AZ"
+  active="/about/"
+>
+  <CrumbBar
+    here="About"
+    eyebrow="Who we are"
+    heading="A clinic that would rather do less."
+    lede="Lumen exists because aesthetics doesn't have to feel like a sales floor. We're a small, licensed team that treats your skin like the medical decision it is."
+  />
+
+  <!-- ===================== TEAM SPOTLIGHT ===================== -->
+  <section class="section spotlight">
+    <div class="wrap">
+      <div class="spotlight-grid">
+        <div class="spotlight-media">
+          <ImageSlot label="Founder portrait: Dana in scrubs/clinic wear, warm, confident, natural light" />
+          <span class="badge">Dana — Founder &amp; NP</span>
+        </div>
+        <div class="spotlight-body">
+          <p class="eyebrow">The founder</p>
+          <h2>
+            After a decade in dermatology nursing, Dana opened Lumen to do
+            aesthetics the honest way.
+          </h2>
+          {founderParas.map((p) => <p>{p}</p>)}
+          <p class="sig">— Dana</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TEAM GRID ===================== -->
+  <section class="section team">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">The team</p>
+        <h2>Small on purpose.</h2>
+        <p>Four people who'll actually remember your name — and your skin.</p>
+      </div>
+      <div class="team-grid">
+        {
+          team.map((m) => (
+            <div class="team-card">
+              <ImageSlot label={m.slot} />
+              <h3>{m.name}</h3>
+              <p class="role">{m.role}</p>
+              <p>{m.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FEATURE ALTERNATING ===================== -->
+  <section class="section feature-alt">
+    <div class="wrap">
+      <div class="fa-rows">
+        {
+          philosophy.map((r, i) => (
+            <div class={i % 2 === 1 ? "fa-row flip" : "fa-row"}>
+              <div class="fa-media">
+                <ImageSlot label={r.slot} />
+              </div>
+              <div class="fa-body">
+                <p class="eyebrow">{r.eyebrow}</p>
+                <h3>{r.title}</h3>
+                <p>{r.body}</p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CtaBanner
+    heading="Come meet the team."
+    body="The best way to know if we're the right fit is to sit down with us. The consultation is free and there's no pressure to book a thing."
+    ctaLabel="Book a Consultation"
+    ctaHref="/contact/"
+  />
+</Layout>

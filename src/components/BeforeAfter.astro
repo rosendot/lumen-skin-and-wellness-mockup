@@ -1,0 +1,27 @@
+---
+import ImageSlot from "./ImageSlot.astro";
+
+/** Draggable before/after comparison. Appears on Home and Results.
+ *  Drag behavior lives in scripts/lumen.ts and binds to every [data-ba]. */
+interface Props {
+  beforeLabel: string;
+  afterLabel: string;
+  /** Wider 16/9 variant used for the Results page hero comparison. */
+  heroSize?: boolean;
+}
+const { beforeLabel, afterLabel, heroSize = false } = Astro.props;
+---
+
+<div class={heroSize ? "ba-slider hero-size" : "ba-slider"} data-ba>
+  <div class="ba-layer ba-after">
+    <ImageSlot label={afterLabel} />
+  </div>
+  <div class="ba-before">
+    <div class="ba-inner">
+      <ImageSlot label={beforeLabel} />
+    </div>
+  </div>
+  <span class="ba-tag before">Before</span>
+  <span class="ba-tag after">After</span>
+  <div class="ba-handle"><div class="ba-knob">⇄</div></div>
+</div>

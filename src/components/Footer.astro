@@ -1,0 +1,64 @@
+---
+import { clinic } from "../data/site";
+/** Classic footer — identical on every page. */
+---
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <a class="brand" href="/">
+        <span class="mark">L</span>
+        <span class="name">Lumen Skin &amp; Wellness<small>Scottsdale · AZ</small></span>
+      </a>
+      <p class="foot-blurb">
+        Medical-grade facials, injectables, massage, and results-driven
+        skincare — led by a licensed nurse practitioner in the heart of
+        Scottsdale.
+      </p>
+      <div class="foot-social">
+        <a href="#" aria-label="Instagram">Ig</a>
+        <a href="#" aria-label="Facebook">Fb</a>
+        <a href="#" aria-label="TikTok">Tk</a>
+      </div>
+    </div>
+    <div class="foot-col">
+      <h4>Treatments</h4>
+      <ul>
+        <li><a href="/treatments/">Facials</a></li>
+        <li><a href="/treatments/">Injectables</a></li>
+        <li><a href="/treatments/">Massage</a></li>
+        <li><a href="/treatments/">Skincare</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="/results/">Results</a></li>
+        <li><a href="/memberships/">Memberships</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/contact/">Contact</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4>Get in touch</h4>
+      <p>{clinic.addressLine1}<br />{clinic.addressLine2}</p>
+      <p>
+        <a href={clinic.phoneHref}>{clinic.phone}</a><br />
+        <a href={`mailto:${clinic.email}`}>{clinic.email}</a>
+      </p>
+      <p class="hrs">
+        <strong>{clinic.hoursShort}</strong><br />{clinic.hoursClosed}
+      </p>
+    </div>
+  </div>
+  <div class="foot-bar">
+    <span class="tagline">Medical aesthetics, done thoughtfully.</span>
+    <span>© 2017–2026 Lumen Skin &amp; Wellness · Scottsdale, AZ</span>
+  </div>
+  <div class="foot-concept">
+    <span>
+      Concept build — Lumen Skin &amp; Wellness is a fictional business.
+      Designed and built by <a href="https://atlasstudio.dev">Atlas Studio</a>.
+    </span>
+  </div>
+</footer>

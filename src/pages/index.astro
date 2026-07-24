@@ -1,0 +1,229 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ImageSlot from "../components/ImageSlot.astro";
+import BeforeAfter from "../components/BeforeAfter.astro";
+import CtaBanner from "../components/CtaBanner.astro";
+
+const pillars = [
+  {
+    num: "I",
+    title: "Led by a nurse practitioner",
+    body: "Every treatment plan is reviewed by a licensed NP — not upsold at a front desk. Medical judgment comes first.",
+  },
+  {
+    num: "II",
+    title: "Natural-looking by design",
+    body: 'We under-treat on purpose. You should look refreshed and rested — never frozen, never obviously "done."',
+  },
+  {
+    num: "III",
+    title: "A real consultation first",
+    body: "We map your skin and talk through your goals before we ever touch it. No plan starts without that conversation.",
+  },
+];
+
+const services = [
+  {
+    slot: "Close-up: gentle facial in progress, gloved hands, glowing skin",
+    price: "From $120",
+    title: "Signature Facial",
+    body: "A deep-cleanse and custom treatment tailored to your skin that day — calming, clarifying, and never one-size-fits-all.",
+  },
+  {
+    slot: "Injectable consultation: NP marking treatment areas, patient relaxed",
+    price: "From $12/unit",
+    title: "Botox & Filler",
+    body: "Subtle softening of lines and restored volume, dosed conservatively. We'd rather do less and see you again.",
+  },
+  {
+    slot: "Therapeutic massage: calm hands on shoulders, soft towels",
+    price: "From $95",
+    title: "Therapeutic Massage",
+    body: "Deep-tissue, lymphatic, and recovery-focused bodywork that pairs beautifully with a treatment day.",
+  },
+  {
+    slot: "Medical skincare shelf: clinical serums, clean product flatlay",
+    price: "From $150",
+    title: "Medical Skincare Plan",
+    body: "A prescriptive at-home routine built by your provider — the part that keeps results going between visits.",
+  },
+];
+
+const stats = [
+  { num: "9", label: "Years in practice" },
+  { num: "6,000+", label: "Treatments delivered" },
+  { num: "1", label: "Nurse practitioner on every plan" },
+  { num: "4.9★", label: "From 400+ reviews" },
+];
+
+const testimonials = [
+  {
+    quote: "I finally look rested instead of done.",
+    initial: "K",
+    name: "Katie L.",
+    location: "Scottsdale",
+  },
+  {
+    quote:
+      "She talked me OUT of a treatment I didn't need. I trust them completely.",
+    initial: "R",
+    name: "Renee M.",
+    location: "Phoenix",
+  },
+  {
+    quote: "My skin hasn't looked this clear since my twenties.",
+    initial: "A",
+    name: "Angela D.",
+    location: "Tempe",
+  },
+];
+---
+
+<Layout
+  title="Lumen Skin &amp; Wellness — Medical-Grade Skincare · Scottsdale, AZ"
+  active="/"
+>
+  <!-- ===================== HERO ===================== -->
+  <section class="hero">
+    <ImageSlot label="Full-bleed calm treatment room: soft daylight, linen bed, greenery, warm neutral tones" />
+    <div class="hero-scrim"></div>
+    <div class="hero-body">
+      <p class="eyebrow">Scottsdale, AZ</p>
+      <h1>Skin that looks like you, on a good day.</h1>
+      <p class="subhead">
+        Medical-grade treatments from a licensed nurse practitioner — no
+        pressure, no overdone results, just healthy skin you recognize in the
+        mirror.
+      </p>
+      <div class="cta-row">
+        <a class="btn" href="/contact/">Book a Consultation</a>
+        <a class="btn ghost on-dark" href="/treatments/">See our treatments</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FEATURE GRID ===================== -->
+  <section class="section features">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Why Lumen</p>
+        <h2>Careful hands, honest advice.</h2>
+      </div>
+      <div class="feature-grid">
+        {
+          pillars.map((p) => (
+            <div class="pillar">
+              <div class="num">{p.num}</div>
+              <div class="rule" />
+              <h3>{p.title}</h3>
+              <p>{p.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SERVICE CARDS ===================== -->
+  <section class="section service-cards">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">What we do</p>
+        <h2>Four ways to care for your skin.</h2>
+        <p>
+          Signature treatments, each built around what your skin actually
+          needs — starting prices below.
+        </p>
+      </div>
+      <div class="sc-grid">
+        {
+          services.map((s) => (
+            <div class="sc-card">
+              <ImageSlot label={s.slot} />
+              <div class="sc-body">
+                <p class="sc-price">{s.price}</p>
+                <h3>{s.title}</h3>
+                <p>{s.body}</p>
+                <a class="sc-link" href="/treatments/">
+                  Learn more →
+                </a>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== BEFORE / AFTER ===================== -->
+  <section class="section ba-sec">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">See the difference</p>
+        <h2>Real results, real clients.</h2>
+        <p>
+          Drag the handle to compare before and after a course of skin-clarity
+          treatments.
+        </p>
+      </div>
+      <BeforeAfter
+        beforeLabel="BEFORE: uneven tone, congestion — same client, same lighting"
+        afterLabel="AFTER: clear, even-toned skin — same client, same lighting"
+      />
+      <p class="ba-caption">
+        A course of clarity facials and a medical skincare plan over roughly
+        twelve weeks.<span class="vary">Results vary from client to client.</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== STATS ===================== -->
+  <section class="section stats">
+    <div class="wrap">
+      <div class="stat-grid">
+        {
+          stats.map((s) => (
+            <div class="stat">
+              <div class="num">{s.num}</div>
+              <div class="lbl">{s.label}</div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TESTIMONIAL CARDS ===================== -->
+  <section class="section t-cards">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">In their words</p>
+        <h2>People who look like themselves.</h2>
+      </div>
+      <div class="tc-grid">
+        {
+          testimonials.map((t) => (
+            <div class="tc-card">
+              <div class="stars">★★★★★</div>
+              <blockquote>"{t.quote}"</blockquote>
+              <div class="tc-who">
+                <div class="tc-avatar">{t.initial}</div>
+                <div class="tc-meta">
+                  <b>{t.name}</b>
+                  <span>{t.location}</span>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CtaBanner
+    heading="Not sure where to start?"
+    body="Book a consult. We'll look at your skin, listen to your goals, and tell you honestly what's worth doing — and what isn't."
+    ctaLabel="Book a Consultation"
+    ctaHref="/contact/"
+  />
+</Layout>

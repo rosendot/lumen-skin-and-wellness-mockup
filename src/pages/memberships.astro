@@ -1,0 +1,230 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ImageSlot from "../components/ImageSlot.astro";
+import CtaBanner from "../components/CtaBanner.astro";
+
+const perks = [
+  "A monthly treatment credit you can put toward what you need",
+  "Member pricing on everything else, every visit",
+  "Priority booking, so the times you want are actually open",
+];
+
+const tiers = [
+  {
+    name: "Glow",
+    tagline: "For steady, low-key upkeep.",
+    amount: "$99",
+    per: "/mo",
+    features: [
+      "One facial credit each month",
+      "10% off all other treatments",
+      "Member-only skincare pricing",
+    ],
+    popular: false,
+  },
+  {
+    name: "Radiance",
+    tagline: "Our best balance of results and value.",
+    amount: "$179",
+    per: "/mo",
+    features: [
+      "Monthly facial + LED credit",
+      "15% off all other treatments",
+      "Priority booking",
+      "One guest pass a year",
+    ],
+    popular: true,
+  },
+  {
+    name: "Signature",
+    tagline: "For the full, hands-on regimen.",
+    amount: "$299",
+    per: "/mo",
+    features: [
+      "Any treatment credit each month",
+      "20% off all other treatments",
+      "Priority booking & rollover credits",
+      "Birthday treatment on us",
+    ],
+    popular: false,
+  },
+];
+
+/** Comparison matrix. `pop` marks the highlighted Radiance column. */
+const tableRows = [
+  { feature: "Monthly credit", glow: "One facial", radiance: "Facial + LED", signature: "Any treatment", type: "val" },
+  { feature: "Member discount", glow: "10%", radiance: "15%", signature: "20%", type: "val" },
+  { feature: "Priority booking", glow: false, radiance: true, signature: true, type: "check" },
+  { feature: "Guest passes", glow: "—", radiance: "1 / year", signature: "4 / year", type: "val" },
+  { feature: "Birthday treatment", glow: false, radiance: true, signature: true, type: "check" },
+  { feature: "Rollover credits", glow: false, radiance: true, signature: true, type: "check" },
+];
+
+const faqs = [
+  {
+    q: "Can I pause or cancel?",
+    a: "Anytime, no penalty. Pause for travel or a busy season, or cancel with 30 days' notice — no long-term contract, ever.",
+  },
+  {
+    q: "Do credits roll over?",
+    a: "On Radiance and Signature, unused credits roll to the next month while your membership is active, so a missed visit is never wasted.",
+  },
+  {
+    q: "Can I share my membership?",
+    a: "Your credits are yours, but guest passes let you bring someone along — one a year on Radiance, four on Signature.",
+  },
+];
+---
+
+<Layout
+  title="Memberships — Lumen Skin &amp; Wellness · Scottsdale, AZ"
+  active="/memberships/"
+>
+  <!-- ===================== HERO SPLIT ===================== -->
+  <section class="hero-split">
+    <div class="hs-body">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span class="sep">/</span>
+        <span class="here">Memberships</span>
+      </nav>
+      <p class="eyebrow">Membership</p>
+      <h1>Skincare is a habit, not a one-time fix.</h1>
+      <p class="lede">
+        The clients who love their skin are the ones who tend to it a little
+        each month. A membership makes that easy — and a lot more affordable.
+      </p>
+      <ul class="policy">
+        {perks.map((p) => <li>{p}</li>)}
+      </ul>
+    </div>
+    <div class="hs-media">
+      <ImageSlot label="Calm product shelf: clinical skincare bottles, soft daylight, greenery" />
+    </div>
+  </section>
+
+  <!-- ===================== PRICING TIERS ===================== -->
+  <section class="section pricing">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Three ways to join</p>
+        <h2>Pick the pace that fits you.</h2>
+        <p>
+          No setup fee. Cancel anytime. Credits are yours to use on the
+          treatments you actually want.
+        </p>
+      </div>
+      <div class="tier-grid">
+        {
+          tiers.map((t) => (
+            <div class={t.popular ? "tier popular" : "tier"}>
+              {t.popular && <span class="badge">Most Popular</span>}
+              <h3>{t.name}</h3>
+              <p class="tagline">{t.tagline}</p>
+              <div class="amount">
+                {t.amount}
+                <span class="per">{t.per}</span>
+              </div>
+              <ul>
+                {t.features.map((f) => (
+                  <li>{f}</li>
+                ))}
+              </ul>
+              <a class="btn" href="/contact/">
+                Become a member
+              </a>
+            </div>
+          ))
+        }
+      </div>
+      <p class="pricing-note">
+        No setup fee · Cancel anytime · Credits never expire while your
+        membership is active.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== PRICING TABLE ===================== -->
+  <section class="section price-table-sec">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Compare</p>
+        <h2>What each tier includes.</h2>
+      </div>
+      <div class="price-table-wrap">
+        <table class="price-table">
+          <thead>
+            <tr>
+              <th class="feat-col">Feature</th>
+              <th>Glow<span class="th-price">$99/mo</span></th>
+              <th class="pop">Radiance<span class="th-price">$179/mo</span></th>
+              <th>Signature<span class="th-price">$299/mo</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              tableRows.map((r) => (
+                <tr>
+                  <th>{r.feature}</th>
+                  {r.type === "val" ? (
+                    <>
+                      <td class="val">{r.glow}</td>
+                      <td class="val pop">{r.radiance}</td>
+                      <td class="val">{r.signature}</td>
+                    </>
+                  ) : (
+                    <>
+                      <td>
+                        <span class={r.glow ? "yes" : "no"}>
+                          {r.glow ? "✓" : "—"}
+                        </span>
+                      </td>
+                      <td class="pop">
+                        <span class={r.radiance ? "yes" : "no"}>
+                          {r.radiance ? "✓" : "—"}
+                        </span>
+                      </td>
+                      <td>
+                        <span class={r.signature ? "yes" : "no"}>
+                          {r.signature ? "✓" : "—"}
+                        </span>
+                      </td>
+                    </>
+                  )}
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ CARDS ===================== -->
+  <section class="section faq-cards">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Membership questions</p>
+        <h2>The fine print, in plain English.</h2>
+      </div>
+      <div class="fc-grid">
+        {
+          faqs.map((f) => (
+            <div class="fc-card">
+              <div class="q-mark">?</div>
+              <h3>{f.q}</h3>
+              <p>{f.a}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CtaBanner
+    heading="Join and book your first treatment this week."
+    body="Start with a consult, choose your tier, and put your first credit to work right away."
+    ctaLabel="Become a member"
+    ctaHref="/contact/"
+  />
+</Layout>
