@@ -12,24 +12,32 @@ const founderParas = [
 const team = [
   {
     slot: "Dana — headshot, warm, professional",
+    src: "/photos/about-team-dana.webp",
+    alt: "Dana, founder and nurse practitioner, in a white shirt against a warm grey background",
     name: "Dana",
     role: "Founder & Nurse Practitioner",
     body: "Leads every treatment plan and performs all injectables. Ten years in dermatology before Lumen.",
   },
   {
     slot: "Mara — headshot, warm, professional",
+    src: "/photos/about-team-mara.webp",
+    alt: "Mara, master esthetician, dark hair pulled back, against a soft light background",
     name: "Mara",
     role: "Master Esthetician",
     body: "Our facials expert. If your skin needs something specific, Mara has almost certainly seen it before.",
   },
   {
     slot: "Sofia — headshot, warm, professional",
+    src: "/photos/about-team-sofia.webp",
+    alt: "Sofia, massage therapist, in a pale blue shirt against a warm neutral background",
     name: "Sofia",
     role: "Massage Therapist",
     body: "Therapeutic and lymphatic bodywork that turns a treatment day into a genuine reset.",
   },
   {
     slot: "Cole — headshot, warm, professional",
+    src: "/photos/about-team-cole.webp",
+    alt: "Cole, patient coordinator, in a dark collar against a soft grey background",
     name: "Cole",
     role: "Patient Coordinator",
     body: "The friendly voice on the phone. Handles your scheduling, questions, and membership details.",
@@ -39,12 +47,16 @@ const team = [
 const philosophy = [
   {
     slot: "NP and client in calm conversation, no procedure — trust and restraint",
+    src: "/photos/about-consultation.webp",
+    alt: "A nurse practitioner and a client seated at a small table in a bright consultation room, talking, with a glass of water and a closed notebook between them",
     eyebrow: "Our philosophy",
     title: "We'd rather under-treat.",
     body: 'You can always add more; you can\'t easily undo too much. We start conservative on purpose and adjust from there — because the best compliment we get is "you look great," not "what did you have done?"',
   },
   {
     slot: "Framed credentials / clean clinical detail — licensed, medical setting",
+    src: "/photos/about-clinical-workspace.webp",
+    alt: "A tidy clinic workspace — a closed laptop and a stainless instrument tray on a pale wood counter, with a glass-front cabinet of supplies behind",
     eyebrow: "The standard",
     title: "Licensed, medical, accountable.",
     body: "We're an NP-led medical practice, not a spa that dabbles. Injectables are performed under medical oversight, products are prescription-grade, and if something isn't right for you, we'll say so — and we'll stand behind the care we do give.",
@@ -68,7 +80,10 @@ const philosophy = [
     <div class="wrap">
       <div class="spotlight-grid">
         <div class="spotlight-media">
-          <ImageSlot label="Founder portrait: Dana in scrubs/clinic wear, warm, confident, natural light" />
+          <ImageSlot
+            src="/photos/about-dana-portrait.webp"
+            alt="Dana, founder and nurse practitioner, in a white shirt against a warm grey background"
+          />
           <span class="badge">Dana — Founder &amp; NP</span>
         </div>
         <div class="spotlight-body">
@@ -96,7 +111,7 @@ const philosophy = [
         {
           team.map((m) => (
             <div class="team-card">
-              <ImageSlot label={m.slot} />
+              <ImageSlot label={m.slot} src={m.src} alt={m.alt} />
               <h3>{m.name}</h3>
               <p class="role">{m.role}</p>
               <p>{m.body}</p>
@@ -115,7 +130,7 @@ const philosophy = [
           philosophy.map((r, i) => (
             <div class={i % 2 === 1 ? "fa-row flip" : "fa-row"}>
               <div class="fa-media">
-                <ImageSlot label={r.slot} />
+                <ImageSlot label={r.slot} src={r.src} alt={r.alt} />
               </div>
               <div class="fa-body">
                 <p class="eyebrow">{r.eyebrow}</p>
