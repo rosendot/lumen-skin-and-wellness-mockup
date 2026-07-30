@@ -651,6 +651,10 @@ a { color: inherit; }
    height. Anchor above centre — the room's subject sits in the upper part of
    the frame and a centred crop cuts it out on wide screens. */
 .hero .img-slot > img { object-position: center 34%; }
+/* The split hero's media half is near-square against a 4:5 photo, so cover()
+   crops height here too. Favour the lower-middle band, where the bench, table
+   and olive tree sit. */
+.hero-split .hs-media .img-slot > img { object-position: center 62%; }
 .img-slot.contain > img { object-fit: contain; }
 /* Caption describing the photo that belongs here. Hidden once a real image
    is supplied. */
