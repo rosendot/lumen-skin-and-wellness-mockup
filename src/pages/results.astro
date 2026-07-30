@@ -8,19 +8,31 @@ import CtaBanner from "../components/CtaBanner.astro";
 const comparisons = [
   {
     beforeSlot: "BEFORE: dull, congested skin — signature facial course",
+    beforeSrc: "/photos/res-facial-before.webp",
+    beforeAlt: "A close three-quarter view of a cheek and jaw showing congestion and uneven tone before treatment",
     afterSlot: "AFTER: clear, luminous skin — same client, same light",
+    afterSrc: "/photos/res-facial-after.webp",
+    afterAlt: "The same cheek and jaw after a facial course — clear, even skin in identical lighting",
     title: "Signature Facial course",
     body: "Six sessions over three months, paired with a custom skincare plan.",
   },
   {
     beforeSlot: "BEFORE: flatter cheek volume — conservative filler",
+    beforeSrc: "/photos/res-filler-before.webp",
+    beforeAlt: "A three-quarter portrait showing flatter midface volume before filler",
     afterSlot: "AFTER: subtly restored volume, natural — same client, same light",
+    afterSrc: "/photos/res-filler-after.webp",
+    afterAlt: "The same face after one syringe of filler — midface volume softly restored, in identical lighting",
     title: "Conservative filler",
     body: "One syringe, placed to refresh — not to change the face.",
   },
   {
     beforeSlot: "BEFORE: uneven texture, acne scarring — microneedling",
+    beforeSrc: "/photos/res-needling-before.webp",
+    beforeAlt: "An extreme close-up of a cheek with rolling acne scarring and uneven texture before microneedling",
     afterSlot: "AFTER: smoother texture, softened scarring — same client, same light",
+    afterSrc: "/photos/res-needling-after.webp",
+    afterAlt: "The same cheek after a microneedling series — smoother texture with softened scarring, in identical lighting",
     title: "Microneedling series",
     body: "Three treatments spaced a month apart for texture and scarring.",
   },
@@ -78,11 +90,11 @@ const stories = [
           comparisons.map((c) => (
             <div class="compare-row">
               <div class="compare-cell">
-                <ImageSlot label={c.beforeSlot} />
+                <ImageSlot label={c.beforeSlot} src={c.beforeSrc} alt={c.beforeAlt} />
                 <span class="clbl">Before</span>
               </div>
               <div class="compare-cell">
-                <ImageSlot label={c.afterSlot} />
+                <ImageSlot label={c.afterSlot} src={c.afterSrc} alt={c.afterAlt} />
                 <span class="clbl">After</span>
               </div>
               <div class="compare-meta">
@@ -111,6 +123,10 @@ const stories = [
         heroSize
         beforeLabel="BEFORE: redness, congestion, uneven tone — wide portrait, same lighting"
         afterLabel="AFTER: clear, radiant, even skin — wide portrait, same lighting"
+        beforeSrc="/photos/res-slider-before.webp"
+        beforeAlt="A wide close view of a cheek and jaw showing redness and congestion before twelve weeks of treatment"
+        afterSrc="/photos/res-slider-after.webp"
+        afterAlt="The same face after twelve weeks — redness resolved and skin tone even, in identical lighting"
       />
       <p class="ba-caption">
         Twelve weeks: a facial course, microneedling, and a medical skincare
