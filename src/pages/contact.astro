@@ -3,6 +3,11 @@ import Layout from "../layouts/Layout.astro";
 import CrumbBar from "../components/CrumbBar.astro";
 import { clinic } from "../data/site";
 
+/** Keyless Maps embed — no API key or billing account needed. The suite number
+ *  is dropped from the query: it doesn't help geocoding and can throw the pin. */
+const MAP_Q = `${clinic.addressLine1.replace(/,\s*Suite.*$/i, "")}, ${clinic.addressLine2}`;
+const MAP_SRC = `https://www.google.com/maps?q=${encodeURIComponent(MAP_Q)}&z=16&output=embed`;
+
 const treatmentOptions = [
   "Not sure yet — help me decide",
   "Signature Facial",
@@ -160,15 +165,12 @@ const hours = [
         <h2>On Camelback Road.</h2>
       </div>
       <div class="mapembed-grid">
-        <div
-          class="map-box"
-          role="img"
-          aria-label="Map of 7120 E Camelback Rd, Scottsdale"
-        >
-          <div class="road" style="top:38%; left:0; right:0; height:14px;"></div>
-          <div class="road" style="top:0; bottom:0; left:60%; width:10px;"></div>
-          <div class="road" style="top:70%; left:0; right:0; height:8px;"></div>
-          <div class="pin"></div>
+        <div class="map-box">
+          <iframe
+            title="Map of Lumen Skin &amp; Wellness, 7120 E Camelback Rd, Scottsdale, AZ 85251"
+            src={MAP_SRC}
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
           <div class="maplbl">7120 E Camelback Rd · Scottsdale, AZ 85251</div>
         </div>
         <div class="contact-card">
