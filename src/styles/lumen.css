@@ -647,6 +647,10 @@ a { color: inherit; }
   width: 100%; height: 100%;
   object-fit: cover;
 }
+/* The hero is far wider than the 16:9 photo filling it, so cover() crops
+   height. Anchor above centre — the room's subject sits in the upper part of
+   the frame and a centred crop cuts it out on wide screens. */
+.hero .img-slot > img { object-position: center 34%; }
 .img-slot.contain > img { object-fit: contain; }
 /* Caption describing the photo that belongs here. Hidden once a real image
    is supplied. */

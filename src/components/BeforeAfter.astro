@@ -8,17 +8,33 @@ interface Props {
   afterLabel: string;
   /** Wider 16/9 variant used for the Results page hero comparison. */
   heroSize?: boolean;
+  /** Both photos must share a crop, angle and light — the before is clipped
+   *  over the after, so any drift reads as a jump while dragging. */
+  beforeSrc?: string;
+  beforeAlt?: string;
+  afterSrc?: string;
+  afterAlt?: string;
 }
-const { beforeLabel, afterLabel, heroSize = false } = Astro.props;
+const {
+  beforeLabel,
+  afterLabel,
+  heroSize = false,
+  beforeSrc = "/photos/ba-home-before.webp",
+  beforeAlt =
+    "A close view of a cheek and jawline showing uneven tone and visible texture before treatment",
+  afterSrc = "/photos/ba-home-after.webp",
+  afterAlt =
+    "The same cheek and jawline after treatment — clearer, more even skin in identical lighting",
+} = Astro.props;
 ---
 
 <div class={heroSize ? "ba-slider hero-size" : "ba-slider"} data-ba>
   <div class="ba-layer ba-after">
-    <ImageSlot label={afterLabel} />
+    <ImageSlot label={afterLabel} src={afterSrc} alt={afterAlt} />
   </div>
   <div class="ba-before">
     <div class="ba-inner">
-      <ImageSlot label={beforeLabel} />
+      <ImageSlot label={beforeLabel} src={beforeSrc} alt={beforeAlt} />
     </div>
   </div>
   <span class="ba-tag before">Before</span>

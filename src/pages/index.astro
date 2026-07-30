@@ -25,24 +25,32 @@ const pillars = [
 const services = [
   {
     slot: "Close-up: gentle facial in progress, gloved hands, glowing skin",
+    src: "/photos/svc-signature-facial.webp",
+    alt: "A client resting on a linen-draped treatment bed with a towel wrapped at the hairline, an esthetician seated beside them in a bright treatment room",
     price: "From $120",
     title: "Signature Facial",
     body: "A deep-cleanse and custom treatment tailored to your skin that day — calming, clarifying, and never one-size-fits-all.",
   },
   {
     slot: "Injectable consultation: NP marking treatment areas, patient relaxed",
+    src: "/photos/svc-botox-filler.webp",
+    alt: "A nurse practitioner in seafoam scrubs talking a client through a skin chart across a consultation table",
     price: "From $12/unit",
     title: "Botox & Filler",
     body: "Subtle softening of lines and restored volume, dosed conservatively. We'd rather do less and see you again.",
   },
   {
     slot: "Therapeutic massage: calm hands on shoulders, soft towels",
+    src: "/photos/svc-massage.webp",
+    alt: "A therapist's hands working across a client's upper back during a massage, folded white towels beside the table",
     price: "From $95",
     title: "Therapeutic Massage",
     body: "Deep-tissue, lymphatic, and recovery-focused bodywork that pairs beautifully with a treatment day.",
   },
   {
     slot: "Medical skincare shelf: clinical serums, clean product flatlay",
+    src: "/photos/svc-skincare-plan.webp",
+    alt: "A row of unlabeled amber and white skincare bottles on a pale shelf beside a sprig of eucalyptus",
     price: "From $150",
     title: "Medical Skincare Plan",
     body: "A prescriptive at-home routine built by your provider — the part that keeps results going between visits.",
@@ -85,7 +93,10 @@ const testimonials = [
 >
   <!-- ===================== HERO ===================== -->
   <section class="hero">
-    <ImageSlot label="Full-bleed calm treatment room: soft daylight, linen bed, greenery, warm neutral tones" />
+    <ImageSlot
+      src="/photos/home-hero-treatment-room.webp"
+      alt="A calm treatment room with a linen-draped bed, a wooden stool, a potted fig by the window, and a pale seafoam accent wall"
+    />
     <div class="hero-scrim"></div>
     <div class="hero-body">
       <p class="eyebrow">Scottsdale, AZ</p>
@@ -139,7 +150,7 @@ const testimonials = [
         {
           services.map((s) => (
             <div class="sc-card">
-              <ImageSlot label={s.slot} />
+              <ImageSlot label={s.slot} src={s.src} alt={s.alt} />
               <div class="sc-body">
                 <p class="sc-price">{s.price}</p>
                 <h3>{s.title}</h3>
