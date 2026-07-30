@@ -100,12 +100,16 @@ const priceGroups = [
 const rows = [
   {
     slot: "NP reviewing a client's skin under good light, both seated, unhurried",
+    src: "/photos/trt-consultation.webp",
+    alt: "A nurse practitioner in seafoam scrubs holding a magnifying light as she examines a seated client's skin across a small table",
     eyebrow: "Step one, always",
     title: "Every plan starts with a consult.",
     body: 'Before any treatment, your nurse practitioner examines your skin, asks about your history, and maps what\'s actually going on. Only then do we recommend anything — and sometimes the honest answer is "less than you came in for."',
   },
   {
     slot: "Clinical devices and medical-grade serums neatly arranged on a clean tray",
+    src: "/photos/trt-clinical-tray.webp",
+    alt: "A stainless instrument tray laid out with a microneedling pen, glass ampoules, folded gauze and sealed gloves",
     eyebrow: "The real thing",
     title: "Medical-grade, not med-cabinet.",
     body: "The products and devices we use are the ones that require a licensed provider to administer — professional formulations and equipment held to a medical standard, not drugstore versions in nicer packaging.",
@@ -189,7 +193,7 @@ const faqs = [
           rows.map((r, i) => (
             <div class={i % 2 === 1 ? "fa-row flip" : "fa-row"}>
               <div class="fa-media">
-                <ImageSlot label={r.slot} />
+                <ImageSlot label={r.slot} src={r.src} alt={r.alt} />
               </div>
               <div class="fa-body">
                 <p class="eyebrow">{r.eyebrow}</p>
