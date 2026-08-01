@@ -128,12 +128,14 @@ if (hoursCard) {
   const todaysHours = openDays[day];
   const isOpen = !!todaysHours && hour >= todaysHours[0] && hour < todaysHours[1];
 
-  const dot = hoursCard.querySelector<HTMLElement>(".dot");
   const label = hoursCard.querySelector<HTMLElement>("[data-hours-label]");
   const sub = hoursCard.querySelector<HTMLElement>("[data-hours-sub]");
 
-  if (dot) dot.classList.toggle("closed", !isOpen);
-  if (label) label.textContent = isOpen ? "Open now" : "Closed now";
+  // The pill carries the state as text + fill; there's no status dot.
+  if (label) {
+    label.textContent = isOpen ? "Open now" : "Closed";
+    label.classList.toggle("closed", !isOpen);
+  }
   if (sub) {
     if (isOpen) sub.textContent = "Today until 6:00pm";
     else if (todaysHours)

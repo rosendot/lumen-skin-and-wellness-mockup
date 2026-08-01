@@ -6,17 +6,14 @@ import CtaBanner from "../components/CtaBanner.astro";
 
 const pillars = [
   {
-    num: "I",
     title: "Led by a nurse practitioner",
     body: "Every treatment plan is reviewed by a licensed NP — not upsold at a front desk. Medical judgment comes first.",
   },
   {
-    num: "II",
     title: "Natural-looking by design",
     body: 'We under-treat on purpose. You should look refreshed and rested — never frozen, never obviously "done."',
   },
   {
-    num: "III",
     title: "A real consultation first",
     body: "We map your skin and talk through your goals before we ever touch it. No plan starts without that conversation.",
   },
@@ -124,7 +121,6 @@ const testimonials = [
         {
           pillars.map((p) => (
             <div class="pillar">
-              <div class="num">{p.num}</div>
               <div class="rule" />
               <h3>{p.title}</h3>
               <p>{p.body}</p>
