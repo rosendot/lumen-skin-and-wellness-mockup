@@ -167,7 +167,11 @@ img.mark { display: block; object-fit: contain; }  /* footer: single mark */
 
 /* ===== HOME HERO (full-bleed photo) ===== */
 .hero {
-  position: relative; min-height: 92vh;
+  position: relative;
+  /* Full-viewport hero — studio convention. svh keeps iOS's collapsing
+     address bar from cropping it; the vh line is the older-browser fallback. */
+  min-height: 100vh;
+  min-height: 100svh;
   display: flex; align-items: flex-end;
   padding: calc(var(--header-h) + var(--space-16)) var(--space-6) var(--space-16);
   overflow: hidden;
