@@ -17,7 +17,7 @@ const { active } = Astro.props;
       </span>
       <span class="name">Lumen Skin &amp; Wellness<small>Scottsdale · AZ</small></span>
     </a>
-    <nav class="nav" id="nav">
+    <nav class="nav" id="nav" aria-label="Primary">
       {
         navItems.map((item) => (
           <a
@@ -30,8 +30,8 @@ const { active } = Astro.props;
       }
       <a class="btn" href="/contact/">Book a Consultation</a>
     </nav>
-    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
-      <span></span><span></span><span></span>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav">
+      <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
     </button>
   </div>
 </header>

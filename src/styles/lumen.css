@@ -28,7 +28,10 @@
   --header-h: 88px;
 }
 
-html { scroll-behavior: smooth; }
+/* scroll-padding keeps the fixed header off the target of an in-page jump —
+   without it a `#section` link parks its heading under the bar. Affects anchor
+   jumps only, not the maximum scroll position. */
+html { scroll-behavior: smooth; scroll-padding-top: var(--header-h); }
 body {
   margin: 0;
   font-family: var(--font-body);
@@ -587,31 +590,216 @@ img.mark { display: block; object-fit: contain; }  /* footer: single mark */
   .feature-grid, .team-grid, .sc-grid, .tc-grid, .fc-grid { grid-template-columns: repeat(2, 1fr); }
   .tier-grid { grid-template-columns: 1fr; }
   .tier.popular { transform: none; }
-  .spotlight-grid, .fa-row, .cs-grid, .mapembed-grid, .hero-split, .pl-groups { grid-template-columns: 1fr; }
-  .fa-row.flip .fa-media { order: 0; }
+  .spotlight-grid, .cs-grid, .mapembed-grid, .hero-split, .pl-groups { grid-template-columns: 1fr; }
+  /* .fa-row stays side by side through the tablet range. Stacking it here made
+     the 4/3 photo full-width — 504px tall at 768px, so the tablet case came
+     out worse than the phone. Two-up keeps the photo at ~324px and the rows
+     at 711 -> ~290px. It stacks at 720px instead (see below). */
+  .fa-row { grid-template-columns: 1fr 1fr; gap: var(--space-6); }
   .spotlight-media { aspect-ratio: 16/10; }
   .stat-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-10); }
   .stat:nth-child(2)::after { display: none; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
   .hero-split .hs-media { min-height: 320px; }
   .pl-groups { gap: var(--space-10); }
+
+  /* ===== CONTACT FORM — iOS ZOOM =====
+     --text-base is 0.95rem = 15.2px, and iOS Safari zooms the whole page when
+     you focus any field under 16px. This lives in the 980px block, not the
+     720px one: an iPad is a touch device and zooms identically. */
+  .field input, .field select, .field textarea { font-size: 16px; }
 }
-@media (max-width: 720px) {
+/* ===== HEADER / DRAWER =====
+   The drawer appears at 900px, not 720px. Six nav links plus the 166px CTA
+   measure 733px, so between 721 and ~900px the nav overflowed its own header,
+   running to x=907 on a 721px screen. Nothing flagged it because .site-header
+   is position:fixed, so the page never gained a scrollbar — the links were
+   simply cut off past the right edge.
+
+   Only the header lives at this width. Layout rules stay at 720px, where a
+   phone actually needs them. ============================================== */
+@media (max-width: 900px) {
+  /* The bar. 88px is a desktop figure — a tenth of a phone screen before any
+     content. Retuned through the token because .nav.open's `top` reads from
+     it; hardcoding a height here desyncs the drawer from the bar. */
+  :root { --header-h: 64px; }
+  /* .solid shrinks to a hardcoded 72px, which is TALLER than the retuned
+     mobile bar, and the drawer had its own hardcoded 72px to compensate.
+     Put both back on the token so they cannot drift apart. */
+  .site-header.solid { height: var(--header-h); }
+
   .nav .lnk { display: none; }
   .nav-toggle { display: block; }
-  .nav.open { position: fixed; top: var(--header-h); left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 0; background: var(--color-white); padding: var(--space-4) var(--space-6) var(--space-6); box-shadow: var(--shadow-lg); }
+
+  /* Hide the header CTA below the drawer breakpoint. It is 166px wide and
+     pushed the burger to x=340 regardless of viewport — completely OFF-SCREEN
+     at 320/360/375px, so the site had no reachable navigation at all on an
+     iPhone SE. overflow-x stayed false because the header is position:fixed,
+     so nothing flagged it. The same CTA is the last item in the drawer. */
+  .nav > .btn { display: none; }
+
+  /* Brand scales to match the shorter bar. At 320px the wordmark wrapped to
+     three lines and "SCOTTSDALE · AZ" broke across two. */
+  .brand { gap: var(--space-2); }
+  .brand .mark { width: 32px; height: 32px; }
+  .brand .name { font-size: var(--text-lg); }
+  .brand .name small { font-size: 8.5px; letter-spacing: 1.5px; margin-top: 2px; }
+
+  /* Burger was 40x42 — under the 44px WCAG 2.5.8 minimum on both axes. */
+  .nav-toggle { padding: 10px; width: 44px; height: 46px; }
+  .site-header .wrap { padding-right: var(--space-4); }
+
+  /* ===== DRAWER =====
+     A dropdown sized to its contents, anchored under the bar. */
+  .nav.open {
+    position: fixed; top: var(--header-h); left: 0; right: 0;
+    z-index: 40;
+    flex-direction: column; align-items: stretch; gap: 0;
+    background: var(--color-white);
+    padding: var(--space-4) var(--space-6) var(--space-6);
+    box-shadow: var(--shadow-lg);
+    /* Landscape phones have ~360px of height; six links plus a button do not
+       fit. Cap it and let the panel scroll instead of overflowing. */
+    max-height: calc(100svh - var(--header-h));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
   .nav.open .lnk { display: block; padding: var(--space-4) 0; border-bottom: 1px solid var(--color-border); color: var(--color-text); }
   .nav.open .lnk.active { color: var(--color-primary-dark); }
-  .nav.open .btn { margin-top: var(--space-4); justify-content: center; background: var(--color-primary); border-color: var(--color-primary); color: var(--color-white); }
-  .site-header.solid .nav.open { top: 72px; }
-  .feature-grid, .team-grid, .sc-grid, .tc-grid, .fc-grid, .form-grid, .compare-row { grid-template-columns: 1fr; }
+  /* Re-show the CTA inside the drawer — `.nav > .btn` above hid it in the bar
+     and this is the same element. */
+  .nav.open > .btn { display: flex; margin-top: var(--space-4); justify-content: center; background: var(--color-primary); border-color: var(--color-primary); color: var(--color-white); }
+
+  /* The bar is transparent over the hero until scrolled, so with the drawer
+     open the photo showed through the strip above a solid white panel. Make
+     the bar solid whenever the drawer is open so they read as one surface. */
+  .site-header:has(.nav.open) {
+    background: var(--color-white);
+    border-bottom-color: var(--color-border);
+  }
+  .site-header:has(.nav.open) .brand .mark-light { opacity: 0; }
+  .site-header:has(.nav.open) .brand .mark-teal { opacity: 1; }
+  .site-header:has(.nav.open) .brand .name { color: var(--color-dark); }
+  .site-header:has(.nav.open) .brand .name small { color: var(--color-primary-dark); }
+  .site-header:has(.nav.open) .nav-toggle span { background: var(--color-dark); }
+
+  /* Scrim over the page behind the drawer, and the tap target that closes it. */
+  .site-header:has(.nav.open)::after {
+    content: "";
+    position: fixed; inset: var(--header-h) 0 0;
+    z-index: 30;
+    background: rgba(20, 39, 36, .45);
+    pointer-events: none;
+  }
+}
+
+@media (max-width: 720px) {
+
+  .feature-grid, .sc-grid, .tc-grid, .fc-grid, .form-grid, .compare-row { grid-template-columns: 1fr; }
   .compare-cell { aspect-ratio: 4/3; }
-  .stat-grid { grid-template-columns: 1fr; gap: var(--space-8); }
+
+  /* ===== STATS =====
+     Four stats stacked single-file is 396px for four figures and four short
+     labels. Each cell is a number plus a couple of words — two-up is
+     comfortable below 320px. Dividers stay off: they are drawn between
+     columns for the 4-up desktop row and read as stray marks once wrapped. */
+  .stat-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-6) var(--space-4); }
   .stat:not(:last-child)::after { display: none; }
-  .footer-grid { grid-template-columns: 1fr; gap: var(--space-8); }
+  .stat .num { font-size: clamp(2rem, 9vw, 2.8rem); }
+
+  /* ===== ABOUT: TEAM =====
+     Four bio cards, each with a 4/5 portrait, ran 2247px single-file. Two-up
+     halves it and the faces still read at ~145px. */
+  .team-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-4); }
+
+  /* ===== CARD SECTIONS =====
+     space-8 padding is 32px of chrome per card before any text, and these
+     stack three and four deep. */
+  .tc-card, .fc-card, .tier { padding: var(--space-5); }
+  .tc-grid, .fc-grid, .tier-grid, .sc-grid { gap: var(--space-4); }
+  .sc-card h3, .fc-card h3 { font-size: var(--text-xl); margin-bottom: var(--space-2); }
+  .fc-card p { line-height: var(--leading-relaxed); }
+  /* The testimonial quote is --text-2xl in the display serif — larger than
+     body copy at snug leading. One step down still reads as a pull-quote. */
+  .tc-card blockquote { font-size: var(--text-lg); margin-bottom: var(--space-4); }
+
+  /* The service card's 4/3 photo is 227px of a 484px card once full width. */
+  .sc-card .img-slot { aspect-ratio: 16/9; }
+
+  .feature-grid { gap: var(--space-6); }
+
+  /* Footer social buttons are 40x40 — under the 44px WCAG 2.5.8 minimum.
+     They are icon-only circles, so grow the circle rather than padding it. */
+  .foot-social a { width: 44px; height: 44px; }
+
+  /* ===== RESULTS: TESTIMONIAL SLIDER DOTS =====
+     10x10 pagination dots are real controls, not decoration. Pad the button
+     out to 44px and clip the paint to the content box so the dot still looks
+     10px. Do NOT claw the space back with a negative margin — that makes
+     neighbouring targets overlap and none of them hit-tests to itself.
+     Shrink the row gap instead. And .active scales the button, which now
+     includes 17px of padding either side, so drop the transform; colour
+     alone carries the state. The base .active also sets `background:`
+     (shorthand), which resets background-clip — re-assert it. */
+  .t-dot {
+    width: 10px; height: 10px;
+    padding: 17px;
+    background-clip: content-box;
+    box-sizing: content-box;
+  }
+  .t-dot.active { transform: none; background-clip: content-box; }
+  .t-dots { gap: var(--space-1); margin-top: var(--space-4); }
+
+  /* ===== TREATMENTS: PRICE LIST =====
+     The largest section on the page, but it is a menu — every row is a real
+     treatment and a real price, so the length is content, not padding. Only
+     the chrome comes down: group gaps, the heading above each group, and the
+     row padding. The name and price stay at their sizes; this is the thing
+     people came to read. */
+  .pl-groups { gap: var(--space-8); }
+  .pl-group h3 { font-size: var(--text-2xl); }
+  .pl-group .pl-rule { margin-bottom: var(--space-4); }
+  .pl-item { padding: var(--space-3) 0; }
+
+  /* ===== ALTERNATING FEATURE ROWS =====
+     This is where the row finally stacks — it stays two-up through tablet
+     (see the 980px block). Once stacked the photo spans the full width, so a
+     4/3 crop is 227px of a 577px row; 16/9 reads better on these interiors
+     anyway. */
+  .fa-row { grid-template-columns: 1fr; gap: var(--space-5); }
+  .fa-row.flip .fa-media { order: 0; }
+  .fa-media { aspect-ratio: 16 / 9; }
+  .fa-body p { line-height: var(--leading-relaxed); }
+  .fa-rows { gap: var(--space-10); }
   .section { padding: var(--space-12) var(--space-5); }
   .res-form { padding: var(--space-6); }
   .hero { min-height: 88vh; }
+
+  /* ===== FOOTER =====
+     1187px on every one of six pages — 1.41 screens, against 451px on
+     desktop. Four columns stacked single-file. The two link lists pair up;
+     the brand blurb and the address block stay full-width because they carry
+     prose and an address, which go ragged in a half-width column. */
+  .site-footer { padding: var(--space-10) var(--space-6) var(--header-h); }
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-8) var(--space-6);
+    margin-bottom: var(--space-8);
+  }
+  .footer-grid > div:first-child,
+  .footer-grid > div:last-child { grid-column: 1 / -1; }
+
+  /* Footer links are 15px tall in a dense list. Pad rather than resize, so
+     the type scale is untouched. */
+  .foot-col ul { gap: 0; }
+  .foot-col ul a { display: block; padding: var(--space-2) 0; }
+  .foot-col h4 { margin-bottom: var(--space-3); }
+  .foot-blurb { margin: var(--space-4) 0 var(--space-5); }
+
+  /* The bottom bar's two lines wrap to their own rows; left-align so the
+     second starts where the first does instead of being pushed right by
+     space-between. */
+  .foot-bar { padding-top: var(--space-5); gap: var(--space-1); justify-content: flex-start; }
 }
 
 /* =====================================================================
